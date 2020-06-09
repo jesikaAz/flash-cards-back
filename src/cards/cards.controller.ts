@@ -3,6 +3,7 @@ import { Controller, Get, Body, Post } from '@nestjs/common';
 import { CardsService } from './cards.service';
 import { Card } from 'src/interfaces/card.interface';
 import { SaveAnswerDto } from './dto/save-answer.dto';
+import { FlagDto } from './dto/flag.dto';
 
 @Controller('cards')
 export class CardsController {
@@ -14,10 +15,21 @@ export class CardsController {
         return cards;
     }
 
+    @Post('reset')
+    async resetGame(@Body() flag:FlagDto) {
+        if (flag.reset) {
+            const result = await this.cardsService.resetGame();
+            return result;
+        } else {
+            return { msg : 'message error', date: new Date().toISOString()};
+        }
+    }
+
     @Post()
     async saveAnswer (@Body() saveAnswersDto: SaveAnswerDto) {
         const result = await this.cardsService.saveAnswer(saveAnswersDto);
         console.log('saveAnswer result', result);
         return result;
     }
+
 }
