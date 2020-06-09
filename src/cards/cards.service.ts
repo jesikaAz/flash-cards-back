@@ -3,16 +3,17 @@ import { Injectable } from '@nestjs/common';
 import { Card } from 'src/interfaces/card.interface';
 import { Answer } from 'src/interfaces/answer.interface';
 import { Message } from 'src/interfaces/message.interface';
+import { isMainThread } from 'worker_threads';
 
 @Injectable()
 export class CardsService {
     answers: Answer[] = [];
 
         cards = [
-            {id:1, question:'Question1?', answer:'Response1'},
-            {id:2, question:'Question2?', answer:'Response2'},
-            {id:3, question:'Question3?', answer:'Response3'},
-            {id:4, question:'Question4?', answer:'Response4'}
+            {id:1, question:'MEAN stack', answer:'Les technos sont : Mongo - Express - Angular - Node'},
+            {id:2, question:'Framework', answer:'NestJS est un framework ?'},
+            {id:3, question:'NestJS', answer:'NestJS est écrit en typescript ?'},
+            {id:4, question:'Main.ts', answer:'main.ts est le point d\'entrée de l\'application ?'}
         ];
 
 
