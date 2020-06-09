@@ -7,14 +7,25 @@ import { Answer } from 'src/interfaces/answer.interface';
 export class CardsService {
     answers: Answer[] = [];
 
-    getCards():Promise<Card[]> {
-        const cards = [
+        cards = [
             {id:1, question:'Question1?', answer:'Response1'},
-            {id:2, question:'Question2?', answer:'Response2'}
+            {id:2, question:'Question2?', answer:'Response2'},
+            {id:3, question:'Question3?', answer:'Response3'},
+            {id:4, question:'Question4?', answer:'Response4'}
         ];
-        return new Promise(resolve => {
-            resolve(cards);
+
+
+        getCards():Promise<Card[]> {
+            return new Promise(resolve => {
+                resolve(this.selectCardsUsedFailedToAnswer());
         })
+    }
+
+    selectCardsUsedFailedToAnswer() {
+        // this first time, send all cards as user didn't have a chance to answer right or wrong
+        if (this.answers.length === 0) return this.cards;
+        const cardsUserFailedToAnswer = this.answers.filter(c => c.isRight === false);
+        return cardsUserFailedToAnswer.map(c => c.card);
     }
 
     saveAnswer(answers): Promise<{msg:string,date:string}> {
